@@ -57,6 +57,8 @@ RUN wget --quiet --no-cookies http://mirrors.m247.ro/apache/tomcat/tomcat-8/v${T
 
 # Add admin/admin user
 ADD tomcat-users.xml /opt/tomcat/conf/
+ADD manager/	/opt/tomcat/webapps/
+ADD html-manager/	/opt/tomcat/webapps/
 
 ENV CATALINA_HOME /opt/tomcat
 ENV PATH $PATH:$CATALINA_HOME/bin

@@ -1,15 +1,7 @@
-docker-tomcat
-=============
 
+Ubuntu 16.04, Oracle JDK 8 and Tomcat 8 based docker container.
 
-[![](https://images.microbadger.com/badges/version/dordoka/tomcat.svg)](http://microbadger.com/images/dordoka/tomcat "Get your own version badge on microbadger.com")
-
-[![](https://images.microbadger.com/badges/image/dordoka/tomcat.svg)](http://microbadger.com/images/dordoka/tomcat "Get your own image badge on microbadger.com")
-
-
-[![dockeri.co](http://dockeri.co/image/dordoka/tomcat)](https://registry.hub.docker.com/u/dordoka/tomcat/)
-
-Ubuntu 14.04, Oracle JDK 8 and Tomcat 8 based docker container.
+ORIGINAL CREATOR : https://hub.docker.com/r/dordoka/tomcat/~/dockerfile/ This is a fork project.
 
 # Description
 You should run this container on the background and mount the volume with your web app inside.
@@ -19,6 +11,7 @@ Includes:
  - Oracle JDK 1.8.111
  - Tomcat 8.0.39
  - Git, wget, curl, build-essential
+ -- Added vim, mc v0.1
  
 ## Volumes
 Exports a volume on `/opt/tomcat/webapps`.
@@ -54,3 +47,8 @@ sudo docker-compose up
 ## A warning regarding admin user for tomcat management console
 Please note that the image contains a `tomcat-users.xml` file, including an `admin` user (password `admin`). For the time being, should you wish to change that, fork this repo and modify the xml file accordingly.
 
+
+ORIGINAL CREATOR : https://hub.docker.com/r/dordoka/tomcat/~/dockerfile/
+[![](https://images.microbadger.com/badges/version/dordoka/tomcat.svg)](http://microbadger.com/images/dordoka/tomcat "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/dordoka/tomcat.svg)](http://microbadger.com/images/dordoka/tomcat "Get your own image badge on microbadger.com")
+[![dockeri.co](http://dockeri.co/image/dordoka/tomcat)](https://registry.hub.docker.com/u/dordoka/tomcat/)
