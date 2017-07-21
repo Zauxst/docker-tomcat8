@@ -7,7 +7,7 @@ ENV TOMCAT_VERSION 8.5.16
 
 # Set the locale
 RUN apt-get clean && apt-get update
-RUN apt-get install locales
+RUN apt-get install locales vim mc
 RUN locale-gen en_US.UTF-8
 
 # Removing this in 0.1
