@@ -3,12 +3,18 @@ FROM ubuntu:16.04
 #Forked from maintainer Carlos Moro
 MAINTAINER Nicolae Rosu <nrosu@pentalog.fr>
 
-ENV TOMCAT_VERSION 8.0.39
+ENV TOMCAT_VERSION 8.5.16
 
+# Set the locale
+RUN apt-get clean && apt-get update
+RUN apt-get install locales
+RUN locale-gen en_US.UTF-8
+
+# Removing this in 0.1
 # Set locales
-RUN locale-gen en_GB.UTF-8
-ENV LANG en_GB.UTF-8
-ENV LC_CTYPE en_GB.UTF-8
+#RUN locale-gen en_GB.UTF-8
+#ENV LANG en_GB.UTF-8
+#ENV LC_CTYPE en_GB.UTF-8
 
 # Fix sh
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -30,13 +36,24 @@ rm -rf /var/cache/oracle-jdk8-installer
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 # Get Tomcat
-RUN wget --quiet --no-cookies http://apache.rediris.es/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
-tar xzvf /tmp/tomcat.tgz -C /opt && \
-mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
-rm /tmp/tomcat.tgz && \
-rm -rf /opt/tomcat/webapps/examples && \
-rm -rf /opt/tomcat/webapps/docs && \
-rm -rf /opt/tomcat/webapps/ROOT
+RUN wget --quiet --no-cookies http://mirrors.m247.ro/apache/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
+	tar xzvf /tmp/tomcat.tgz -C /opt && \
+	mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
+	rm /tmp/tomcat.tgz
+	#Leaving Dummy files. This img is for training not for production.	
+	#rm -rf /opt/tomcat/webapps/examples && \
+	#rm -rf /opt/tomcat/webapps/docs && \
+	#rm -rf /opt/tomcat/webapps/ROOT
+
+
+#Removed in v0.1
+#RUN wget --quiet --no-cookies http://apache.rediris.es/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
+#tar xzvf /tmp/tomcat.tgz -C /opt && \
+#mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
+#rm /tmp/tomcat.tgz && \
+#rm -rf /opt/tomcat/webapps/examples && \
+#rm -rf /opt/tomcat/webapps/docs && \
+#rm -rf /opt/tomcat/webapps/ROOT
 
 # Add admin/admin user
 ADD tomcat-users.xml /opt/tomcat/conf/
