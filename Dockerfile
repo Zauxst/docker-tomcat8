@@ -7,7 +7,7 @@ ENV TOMCAT_VERSION 8.5.16
 
 # Set the locale
 RUN apt-get clean && apt-get update
-RUN apt-get install locales vim mc
+RUN apt-get install locales vim mc -y --force-yes
 RUN locale-gen en_US.UTF-8
 
 # Removing this in 0.1
@@ -21,14 +21,14 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Install dependencies
 RUN apt-get update && \
-apt-get install -y git build-essential curl wget software-properties-common
+apt-get install -y --force-yes  git build-essential curl wget software-properties-common
 
 # Install JDK 8
 RUN \
 echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
 add-apt-repository -y ppa:webupd8team/java && \
-apt-get update && \
-apt-get install -y oracle-java8-installer wget unzip tar && \
+apt-get update -y && \
+apt-get install -y --force-yes oracle-java8-installer wget unzip tar && \
 rm -rf /var/lib/apt/lists/* && \
 rm -rf /var/cache/oracle-jdk8-installer
 
