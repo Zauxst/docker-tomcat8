@@ -7,8 +7,19 @@ ORIGINAL CREATOR : https://hub.docker.com/r/dordoka/tomcat/~/dockerfile/ This is
 
 
 # Updates
+## V0.2
+ - Modifications to README:
+	* Modifications to reflect group ownership and the correct way to start the docker container using this img.
+	* Added microbadges
+	* Added updates section to reflect the last 3 updates
 ## V0.1
  - Added vim, mc;
+
+## TODO
+ * Separate developement and production img (remove vim, mc and use only the bare neceseties)
+ * Configure corectly the manager application to work
+ * configure corectly the .sh file
+
 
 # Description
 You should run this container on the background and mount the volume with your web app inside.
