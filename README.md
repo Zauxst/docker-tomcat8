@@ -3,6 +3,13 @@ Ubuntu 16.04, Oracle JDK 8 and Tomcat 8 based docker container.
 
 ORIGINAL CREATOR : https://hub.docker.com/r/dordoka/tomcat/~/dockerfile/ This is a fork project.
 
+[![](https://images.microbadger.com/badges/image/zauxst/tomcat.svg)](https://microbadger.com/images/zauxst/tomcat "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/image/zauxst/tomcat.svg)](https://microbadger.com/images/zauxst/tomcat "Get your own image badge on microbadger.com")
+
+
+# Updates
+## V0.1
+ - Added vim, mc;
+
 # Description
 You should run this container on the background and mount the volume with your web app inside.
 
@@ -11,8 +18,7 @@ Includes:
  - Oracle JDK 1.8.111
  - Tomcat 8.0.39
  - Git, wget, curl, build-essential
- -- Added vim, mc v0.1
- 
+  
 ## Volumes
 Exports a volume on `/opt/tomcat/webapps`.
 You can mount the volume on run to a local directory containing your war file or exploded war directory.
@@ -33,9 +39,9 @@ Remember to map the ports to the docker host on run.
 You need docker v1.3+ installed. To get the container up and running, run:
  
 ```
-sudo docker run -d -p 8080:8080 -p 8009:8009 -v /opt/tomcat/webapps:/opt/tomcat/webapps dordoka/tomcat
+sudo docker run -d -p 8080:8080 -p 8009:8009 -v /srv/tomcat/webapps:/opt/tomcat/webapps zauxst/tomcat
 ```
-Remember to change `/opt/tomcat/webapps` to the directory where your app is stored.
+Remember to change `/srv/tomcat/webapps` to the directory where your app is stored.
 
 ## Using docker compose
 If you have `docker-compose` installed, you can just launch:
