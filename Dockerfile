@@ -9,13 +9,14 @@ ENV CATALINA_HOME /opt/tomcat
 ENV PATH $PATH:$CATALINA_HOME/bin
 
 # Set the locale
-RUN apt-get clean && apt-get update && \
-	add-apt-repository -y ppa:webupd8team/java && \
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh && \ 
+	apt-get clean && apt-get update && \
 	apt-get install locales vim mc -y --force-yes && \
 	locale-gen en_US.UTF-8 && \
 	rm /bin/sh && ln -s /bin/bash /bin/sh && \
 	apt-get update && \
-	apt-get install -y --force-yes  git build-essential curl wget software-properties-common && \
+	apt-get install -y --force-yes git build-essential curl wget software-properties-common && \
+        add-apt-repository -y ppa:webupd8team/java && \
 	echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
 	apt-get update -y && \
 	apt-get install -y --force-yes oracle-java8-installer wget unzip tar && \
