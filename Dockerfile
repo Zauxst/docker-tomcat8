@@ -6,9 +6,22 @@ MAINTAINER Nicolae Rosu <nrosu@pentalog.fr>
 ENV TOMCAT_VERSION 8.5.16
 
 # Set the locale
-RUN apt-get clean && apt-get update
-RUN apt-get install locales vim mc -y --force-yes
-RUN locale-gen en_US.UTF-8
+RUN apt-get clean && apt-get update && \
+	apt-get install locales vim mc -y --force-yes && \
+	locale-gen en_US.UTF-8 && \
+	rm /bin/sh && ln -s /bin/bash /bin/sh && \
+	apt-get update && \
+	apt-get install -y --force-yes  git build-essential curl wget software-properties-common \
+	echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
+	add-apt-repository -y ppa:webupd8team/java && \
+	apt-get update -y && \
+	apt-get install -y --force-yes oracle-java8-installer wget unzip tar && \
+	rm -rf /var/lib/apt/lists/* && \
+	rm -rf /var/cache/oracle-jdk8-installer && \
+	wget --quiet --no-cookies http://mirrors.m247.ro/apache/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
+	tar xzvf /tmp/tomcat.tgz -C /opt && \
+	mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
+	rm /tmp/tomcat.tgz
 
 # Removing this in 0.1
 # Set locales
@@ -16,30 +29,12 @@ RUN locale-gen en_US.UTF-8
 #ENV LANG en_GB.UTF-8
 #ENV LC_CTYPE en_GB.UTF-8
 
-# Fix sh
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-
-# Install dependencies
-RUN apt-get update && \
-apt-get install -y --force-yes  git build-essential curl wget software-properties-common
-
 # Install JDK 8
-RUN \
-echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-add-apt-repository -y ppa:webupd8team/java && \
-apt-get update -y && \
-apt-get install -y --force-yes oracle-java8-installer wget unzip tar && \
-rm -rf /var/lib/apt/lists/* && \
-rm -rf /var/cache/oracle-jdk8-installer
 
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 # Get Tomcat
-RUN wget --quiet --no-cookies http://mirrors.m247.ro/apache/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
-	tar xzvf /tmp/tomcat.tgz -C /opt && \
-	mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
-	rm /tmp/tomcat.tgz
 	#Leaving Dummy files. This img is for training not for production.	
 	#rm -rf /opt/tomcat/webapps/examples && \
 	#rm -rf /opt/tomcat/webapps/docs && \
