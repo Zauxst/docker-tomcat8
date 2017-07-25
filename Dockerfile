@@ -16,32 +16,24 @@ ENV TOMCAT_VERSION=8.5.16 \
 	PATH=${PATH}:${CATALINA_HOME}/bin 
 
 # Set the locale install PPA, install Tomcat.
-RUN apt-get clean && apt-get update && \
-	apt-get install locales vim mc -y --force-yes && \
-	locale-gen en_US.UTF-8 && \
-	rm /bin/sh && ln -s /bin/bash /bin/sh && \
-	apt-get update && \
-	apt-get install -y --force-yes  git build-essential curl wget software-properties-common && \
-        add-apt-repository -y ppa:webupd8team/java && \
+RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' > /etc/apt/sources.list.d/webupd8team-ubuntu-java-xenial.list && \
+	apt-get clean && apt-get update && \
 	echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-	apt-get update -y && \
-	apt-get install -y --force-yes oracle-java8-installer wget unzip tar && \
+	apt-get install -y --force-yes --no-install-recommends oracle-java8-installer  && \
 	rm -rf /var/lib/apt/lists/* && \
 	rm -rf /var/cache/oracle-jdk8-installer && \
 	wget --quiet --no-cookies http://mirrors.m247.ro/apache/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
-	tar xzvf /tmp/tomcat.tgz -C /opt && \
-	mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
+        tar xzvf /tmp/tomcat.tgz -C /opt && \
+        mv /opt/apache-tomcat-${TOMCAT_VERSION} ${CATALINA_HOME} && \
 	rm /tmp/tomcat.tgz
 
 # Add admin/admin user
-ADD tomcat-users.xml ${CATALINA_HOME}/conf/
+# ADD tomcat-users.xml ${CATALINA_HOME}/conf/
 ADD entrypoint.sh /
-#ADD manager ${TOMCAT_WEBAPPS}
-#ADD host-manager ${TOMCAT_WEBAPPS}
 
 EXPOSE 8080 8009
-#VOLUME ["${TOMCAT_WEBAPPS}", "${TOMCAT_LOG}"]
-WORKDIR ${CATALINA_HOME}
+VOLUME ["${TOMCAT_WEBAPPS}", "${TOMCAT_LOG}"]
+#WORKDIR ${CATALINA_HOME}
 
 # Launch Tomcat
 ENTRYPOINT ["/entrypoint.sh"]

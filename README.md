@@ -4,7 +4,7 @@ Ubuntu 16.04, Oracle JDK 8 and Tomcat 8 based docker container.
 [![](https://images.microbadger.com/badges/version/zauxst/tomcat.svg)](https://microbadger.com/images/zauxst/tomcat "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/zauxst/tomcat.svg)](https://microbadger.com/images/zauxst/tomcat "Get your own image badge on microbadger.com")
 
 
-##UPDATE v0.4.2 - RC
+## UPDATE v0.4.2 - RC
 # Big update RC
  - This update contains multiple modifications
  - Dockerfile modifications:

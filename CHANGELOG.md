@@ -1,3 +1,8 @@
+# V0.4.3 - image Size
+ - This update focuses on img size: Reduced the image size by 300mb of uncompressed data, this update is only usable for PRODUCTION. This reduces the img size while removing important debug tools like txt editor VIM, MCEDIT)
+ - Verified small functionalities, needs to be tested but pushing this img to master RC update.
+
+
 ## Big update RC
 # V0.4.2
  - This update contains multiple modifications
