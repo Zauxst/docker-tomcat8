@@ -1,12 +1,14 @@
 FROM ubuntu:16.04
 
 #Forked from maintainer Carlos Moro
-MAINTAINER Nicolae Rosu <nrosu@pentalog.fr>
+
+MAINTAINER Nicolae Rosu <rnicolae90@gmail.com>
 
 ENV TOMCAT_VERSION=8.5.16 \
 	CATALINA_HOME="/opt/tomcat" \
 	TOMCAT_LOG="/var/log/catalina" \
 	TOMCAT_WEBAPPS="${CATALINA_HOME}/webapps" \
+        TOMCAT_MANAGER=${TOMCAT_MANAGER:-/opt/tomcat/webapps} \
 	JAVA_HOME="/usr/lib/jvm/java-8-oracle" \
 	MANAGER_ALLOW_REMOTE=${MANAGER_ALLOW_REMOTE:-true} \
 	MANAGER_USER=${MANAGER_USERNAME:-admin} \
@@ -33,14 +35,16 @@ RUN apt-get clean && apt-get update && \
 
 # Add admin/admin user
 ADD tomcat-users.xml ${CATALINA_HOME}/conf/
-ADD manager ${TOMCAT_WEBAPPS}
-ADD host-manager ${TOMCAT_WEBAPPS}
+ADD entrypoint.sh /
+#ADD manager ${TOMCAT_WEBAPPS}
+#ADD host-manager ${TOMCAT_WEBAPPS}
 
 EXPOSE 8080 8009
-VOLUME ["${TOMCAT_WEBAPPS}", "${TOMCAT_LOG}"]
+#VOLUME ["${TOMCAT_WEBAPPS}", "${TOMCAT_LOG}"]
 WORKDIR ${CATALINA_HOME}
 
 # Launch Tomcat
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["tomcat-start"]
 
 
