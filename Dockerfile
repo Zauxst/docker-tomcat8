@@ -10,8 +10,8 @@ ENV TOMCAT_VERSION=8.5.16 \
 	TOMCAT_WEBAPPS="${CATALINA_HOME}/webapps" \
         TOMCAT_MANAGER=${TOMCAT_MANAGER:-/opt/tomcat/webapps} \
 	JAVA_HOME="/usr/lib/jvm/java-8-oracle" \
-	MANAGER_ALLOW_REMOTE=${MANAGER_ALLOW_REMOTE:-true} \
-	MANAGER_USER=${MANAGER_USERNAME:-admin} \
+	MANAGER_ALLOW_REMOTE=${MANAGER_ALLOW_REMOTE:-false} \
+	MANAGER_USER=${MANAGER_USER:-admin} \
 	MANAGER_PASSWORD=${MANAGER_PASSWORD:-admin} \
 	PATH=${PATH}:${CATALINA_HOME}/bin 
 
@@ -45,6 +45,6 @@ WORKDIR ${CATALINA_HOME}
 
 # Launch Tomcat
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["tomcat-start"]
+CMD ["start"]
 
 

@@ -1,5 +1,9 @@
 tomcat:
-  image: zauxst/tomcat
+  image: zauxst/tomcat:0.4.2
+  environment:
+	- MANAGEMENT_ALLOW_REMOTE=FALSE
+	- MANAGEMENT_USER=""
+	- MANAGEMENT_PASSWORD=""
   ports:
   - "8080:8080"
   - "9009:8009"
