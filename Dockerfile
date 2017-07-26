@@ -28,7 +28,7 @@ RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' > /e
 	rm /tmp/tomcat.tgz
 
 # Add admin/admin user
-# ADD tomcat-users.xml ${CATALINA_HOME}/conf/
+ADD tomcat-users.xml ${CATALINA_HOME}/conf/
 ADD entrypoint.sh /
 
 EXPOSE 8080 8009

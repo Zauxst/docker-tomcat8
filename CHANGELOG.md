@@ -1,3 +1,8 @@
+# v0.4.4 - Image Size + ENV configuration
+ - Fixed a bug where it would append comment blocks everytime the container restarted. Used a file in host ROOT dir that is created when the container is runned for the first time, and then it skips MANAGER ENV instructions eveyrtime it's restarting the container.
+ - Manager works, MANAGER_ROOT_DIR env doesn't work yet.
+ - Drastically reduced the img size (see v0.4.3 which was skipped)
+
 # V0.4.3 - image Size
  - This update focuses on img size: Reduced the image size by 300mb of uncompressed data, this update is only usable for PRODUCTION. This reduces the img size while removing important debug tools like txt editor VIM, MCEDIT)
  - Verified small functionalities, needs to be tested but pushing this img to master RC update.
