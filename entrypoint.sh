@@ -12,6 +12,14 @@ if [ ! -e /container_first_time_run ]; then
 		echo "CONTAINER ALREADY RUNNED on = $(cat /container_first_time_run)";
 fi
 
+if [ "$1" = "simple-start" ]; then
+	#this is a debug-start
+	cd $CATALINA_HOME/..
+	ls -lah -R
+        
+	sh $CATALINA_HOME/bin/catalina.sh run
+fi
+
 if [ "$1" = "start" ]; then
     #Verify if manager is active
     if [[ "$MANAGER_ALLOW_REMOTE" = "true" && ! -e /container_first_time_run ]]; then
@@ -25,8 +33,9 @@ if [ "$1" = "start" ]; then
     
     # IF statement for further case analysis, if different commands are runed into docker exec
     if [ "$1" = "start" ]; then
-    echo "$(date +%F-%R)" >> /container_first_time_run
-    sh $CATALINA_HOME/bin/catalina.sh run
+    #echo "$(date +%F-%R)" >> /container_first_time_run
+    ls -lah $CATALINA_HOME/bin/
+    $CATALINA_HOME/bin/./catalina.sh run
     fi
 fi
 

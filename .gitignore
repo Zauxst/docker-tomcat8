@@ -1,2 +1,4 @@
 test/
-*manager/
+host-manager/
+manager/
+tomcat/

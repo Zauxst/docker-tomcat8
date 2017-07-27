@@ -4,6 +4,12 @@ Ubuntu 16.04, Oracle JDK 8.5.16 and Tomcat 8 based docker container.
 [![](https://images.microbadger.com/badges/version/zauxst/tomcat.svg)](https://microbadger.com/images/zauxst/tomcat "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/zauxst/tomcat.svg)](https://microbadger.com/images/zauxst/tomcat "Get your own image badge on microbadger.com")
 
 
+# Last Update : 
+# v0.4.6 - Image Security
+ - Working towards hardening the security of the image and marking more checks on docker-bench-security ( https://github.com/docker/docker-bench-security )
+ - Changed MAINTAINER with labels.
+ - erased the "add" function.
+
 # Last Update 2017-07-26 ~11:20 UTC +3
 # v0.4.4 - Image Size + ENV configuration
  - Fixed a bug where it would append comment blocks everytime the container restarted. Used a file in host ROOT dir that is created when the container is runned for the first time, and then it skips MANAGER ENV instructions eveyrtime it's restarting the container.
@@ -55,6 +61,17 @@ If you have `docker-compose` installed, you can just launch:
 sudo docker-compose up
 ```
 
+# Security Check
+```
+docker run -it --rm --net host --pid host --cap-add audit_control \
+    -e DOCKER_CONTENT_TRUST=$DOCKER_CONTENT_TRUST \
+    -v /var/lib:/var/lib \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /usr/lib/systemd:/usr/lib/systemd \
+    -v /etc:/etc --label docker_bench_security \
+    docker/docker-bench-security
+```
+
 ## A warning regarding admin user for tomcat management console
 Please note that the image contains a `tomcat-users.xml` file, including an `admin` user (password `admin`). For the time being, should you wish to change that, fork this repo and modify the xml file accordingly.
 
@@ -74,7 +91,7 @@ Please note that the image contains a `tomcat-users.xml` file, including an `adm
  - Added vim, mc;
 
 
-
+#Please leave me some feedback
 
 ORIGINAL CREATOR : https://hub.docker.com/r/dordoka/tomcat/~/dockerfile/ 
 Thanks!
