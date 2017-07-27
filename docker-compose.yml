@@ -1,11 +1,9 @@
 tomcat:
-  image: zauxst/tomcat:0.4.2
+  image: zauxst/tomcat
   environment:
-	- MANAGEMENT_ALLOW_REMOTE=FALSE
-	- MANAGEMENT_USER=""
-	- MANAGEMENT_PASSWORD=""
+   - MANAGEMENT_ALLOW_REMOTE=true
+   - MANAGEMENT_USER=administrator
+   - MANAGEMENT_PASSWORD=admin_password
   ports:
-  - "8080:8080"
-  - "9009:8009"
-  volumes:
-  - "/srv/docker/tomcat/webapps/:/opt/tomcat/webapps/"
+   - "8080:8080"
+   - "9009:8009"

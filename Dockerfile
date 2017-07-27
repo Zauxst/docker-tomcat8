@@ -2,7 +2,11 @@ FROM ubuntu:16.04
 
 #Forked from maintainer Carlos Moro
 
-MAINTAINER Nicolae Rosu <rnicolae90@gmail.com>
+LABEL author="Nicolae Rosu" \
+	maintainer="rnicolae90@gmailcom" \
+	version="0.4.6" \
+	description="Almost ready for production TOMCAT" 
+	
 
 ENV TOMCAT_VERSION=8.5.16 \
 	CATALINA_HOME="/opt/tomcat" \
@@ -16,7 +20,8 @@ ENV TOMCAT_VERSION=8.5.16 \
 	PATH=${PATH}:${CATALINA_HOME}/bin 
 
 # Set the locale install PPA, install Tomcat.
-RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' > /etc/apt/sources.list.d/webupd8team-ubuntu-java-xenial.list && \
+RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' >> /etc/apt/sources.list && \
+    echo 'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' >> /etc/apt/sources.list && \
 	apt-get clean && apt-get update && \
 	echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
 	apt-get install -y --force-yes --no-install-recommends oracle-java8-installer  && \
@@ -33,6 +38,7 @@ ADD entrypoint.sh /
 
 EXPOSE 8080 8009
 VOLUME ["${TOMCAT_WEBAPPS}", "${TOMCAT_LOG}"]
+ADD ["host-manager","manager","/opt/tomcat/webapps/"]
 #WORKDIR ${CATALINA_HOME}
 
 # Launch Tomcat
