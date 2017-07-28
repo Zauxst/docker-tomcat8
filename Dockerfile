@@ -10,7 +10,7 @@ LABEL author="Nicolae Rosu" \
 ARG USER=tom
 ARG GROUP=cat
 ARG uid=27300
-ARG gid=27300
+ARG gid=27301
 
 ENV TOMCAT_VERSION=8.5.16 \
 	CATALINA_HOME="/opt/tomcat" \
@@ -41,7 +41,7 @@ RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' >> /
 	wget --quiet --no-cookies http://mirrors.m247.ro/apache/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
         mkdir -p ${CATALINA_HOME}/ && \
 	tar xzvf /tmp/tomcat.tgz --strip 1 -C ${CATALINA_HOME}/ && \
-	chown -R ${USER}:${GROUP} ${CAtALINA_HOME} && \
+	chown -R ${USER}:${GROUP} ${CATALINA_HOME} && \
 	rm -rf /tmp/*
 
 # Add admin/admin user
