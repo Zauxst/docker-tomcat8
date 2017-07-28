@@ -34,10 +34,10 @@ if [ "$1" = "start" ]; then
     # IF statement for further case analysis, if different commands are runed into docker exec
     if [ "$1" = "start" ]; then
     #echo "$(date +%F-%R)" >> /container_first_time_run
-    ls -lah $CATALINA_HOME/bin/
-    $CATALINA_HOME/bin/./catalina.sh run
+    #ls -lah $CATALINA_HOME/bin/
+    chown -R ${USER}:${GROUP} $CATALINA_HOME
+    sh $CATALINA_HOME/bin/catalina.sh run
     fi
 fi
 
 exec "$@"
-

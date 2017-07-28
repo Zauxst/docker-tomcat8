@@ -4,13 +4,13 @@ FROM ubuntu:16.04
 
 LABEL author="Nicolae Rosu" \
 	maintainer="rnicolae90@gmailcom" \
-	version="0.4.6" \
+	version="0.4.7" \
 	description="Almost ready for production TOMCAT" 
 	
 ARG USER=tom
 ARG GROUP=cat
 ARG uid=27300
-ARG gid=27301
+ARG gid=27300
 
 ENV TOMCAT_VERSION=8.5.16 \
 	CATALINA_HOME="/opt/tomcat" \
@@ -29,7 +29,7 @@ ENV TOMCAT_VERSION=8.5.16 \
 RUN groupadd -g ${gid} ${GROUP} \
 	    && useradd -d "/home/tomcat/" -u ${uid} -g ${gid} -m -s /bin/bash ${USER}
 
-#VOLUME ${TOMCAT_WEBAPPS}
+VOLUME ${TOMCAT_WEBAPPS}
 
 RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' >> /etc/apt/sources.list && \
 	echo 'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' >> /etc/apt/sources.list && \
@@ -39,7 +39,7 @@ RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main' >> /
 	rm -rf /var/lib/apt/lists/* && \
 	rm -rf /var/cache/oracle-jdk8-installer && \
 	wget --quiet --no-cookies http://mirrors.m247.ro/apache/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
-        mkdir -p ${CATALINA_HOME}/ && \
+	mkdir -p ${CATALINA_HOME}/ && \
 	tar xzvf /tmp/tomcat.tgz --strip 1 -C ${CATALINA_HOME}/ && \
 	chown -R ${USER}:${GROUP} ${CATALINA_HOME} && \
 	rm -rf /tmp/*
@@ -57,6 +57,4 @@ EXPOSE 8080 8009
 RUN chown -R ${USER}: ${CATALINA_HOME} /entrypoint.sh
 USER ${USER}:${GROUP}
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["simple-start"]
-
-
+CMD ["start"]

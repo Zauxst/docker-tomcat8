@@ -9,11 +9,11 @@ Ubuntu 16.04, Oracle JDK 8.5.16 and Tomcat 8 based docker container.
  - Working towards hardening the security of the image and marking more checks on docker-bench-security ( https://github.com/docker/docker-bench-security )
  - Changed MAINTAINER with labels.
  - erased the "add" function.
-
-# Last Update 2017-07-26 ~11:20 UTC +3
-# v0.4.4 - Image Size + ENV configuration
- - Fixed a bug where it would append comment blocks everytime the container restarted. Used a file in host ROOT dir that is created when the container is runned for the first time, and then it skips MANAGER ENV instructions eveyrtime it's restarting the container.
- - Manager works, MANAGER_ROOT_DIR env doesn't work yet.
+ - Started using USER Namespace: 
+	* Docker will not run on the user tom and the group cat (UID & GID 27300);
+ - Volumes are a bit complicated to set up but they work corectly, need more details on how to set up.
+	** NOTE: If there are issues while using VOLUME with files not being deployed you can change the folder user and group which is recommended to 27300 you are mounting. (chown -R 27300:27300 /srv/tomcat) 
+ - Manager (Will not work and if MANAGER_ALLOW_REMOTE=true and using Volumes, it will crash the container, needs hot fix);
 
 # TODO
  * Separate developement and production img (remove vim, mc and use only the bare neceseties)
