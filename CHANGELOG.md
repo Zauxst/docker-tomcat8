@@ -1,3 +1,17 @@
+# v0.4.7 - Further Security
+ - Fixed Manager, now it will work as long as it is not mounted using volumes, and it will be disabled by default if using "prod environment"
+ - Added 2 new Environment rules, "dev"/"development" and "prod"/"production"(defaults to production); Developement can use manager but withouth volumes still working on it for a hack.
+
+# v0.4.6 - Image Security
+ - Working towards hardening the security of the image and marking more checks on docker-bench-security ( https://github.com/docker/docker-bench-security )
+ - Changed MAINTAINER with labels.
+ - erased the "add" function.
+ - Started using USER Namespace:
+        * Docker will not run on the user tom and the group cat (UID & GID 27300);
+ - Volumes are a bit complicated to set up but they work corectly, need more details on how to set up.
+        ** NOTE: If there are issues while using VOLUME with files not being deployed you can change the folder user and group which is recommended to 27300 you are mounting. (chown -R 27300:27300 /srv/tomcat)
+ - Manager (Will not work and if MANAGER_ALLOW_REMOTE=true and using Volumes, it will crash the container, needs hot fix);
+
 # v0.4.4 - Image Size + ENV configuration
  - Fixed a bug where it would append comment blocks everytime the container restarted. Used a file in host ROOT dir that is created when the container is runned for the first time, and then it skips MANAGER ENV instructions eveyrtime it's restarting the container.
  - Manager works, MANAGER_ROOT_DIR env doesn't work yet.
